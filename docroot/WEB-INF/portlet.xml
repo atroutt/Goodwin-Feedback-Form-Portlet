@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" 
+	version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+	<portlet>
+		<portlet-name>feedback-form</portlet-name>
+		<display-name>Feedback Form</display-name>
+		<portlet-class>edu.drexel.goodwin.portal.FeedbackPortlet</portlet-class>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>VIEW</portlet-mode>
+			<portlet-mode>EDIT</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>Goodwin Feedback Form</title>
+			<short-title>Feedback Form</short-title>
+			<keywords>Feedback Form</keywords>
+		</portlet-info>
+		<portlet-preferences>
+		<preference>
+ 			<name>title</name>
+		</preference>
+		<preference>
+ 			<name>message</name>
+		</preference>
+		<preference>
+ 			<name>subject</name>
+		</preference>
+		<preference>
+ 			<name>anonymous</name>
+		</preference>
+		<preference>
+			<name>to</name>
+		</preference>
+		</portlet-preferences>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+		<container-runtime-option>
+			<name>javax.portlet.actionScopedRequestAttributes</name>
+			<value>true</value>
+		</container-runtime-option>
+	</portlet>
+</portlet-app>

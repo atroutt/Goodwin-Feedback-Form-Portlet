@@ -1,0 +1,65 @@
+Goodwin Feedback Form Portlet
+
+------
+LICENSE
+------
+Copyright (c) 2011, Goodwin College at Drexel University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+Neither the name of Goodwin College nor Drexel University nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+------
+
+1. Overview of application
+
+	 This is a simple Liferay portlet to allow portal guests to send a message to a configured email address (or addresses). It has been used for an idea bank and a feedback form.
+	 
+	 It has the additional feature of optional anonymity. If you check the box at the bottom of the form the email will come from the configured address instead of the logged in Liferay user's email address.
+	 
+	 From the Preferences menu you can configure publicly visible text like the title and blurb as well as the address(es) that the messages will be sent to, the from address for anonymous posts and the subject of the email that is generated when a message is entered.
+	 
+	 This portlet uses Liferay's built-in messaging system, so do make sure that your portal mail server settings are configured correctly and that your user's email addresses are correct.
+
+2. Development 
+
+2.1 Development Installation
+
+I expect that you have java and ant installed.
+
+	* Get zips from 
+	** http://sourceforge.net/projects/lportal/files/Liferay%20Portal/5.2.3/liferay-portal-tomcat-6.0-5.2.3.zip/download
+	** http://sourceforge.net/projects/lportal/files/Liferay%20Portal/5.2.3/liferay-plugins-sdk-5.2.3.zip/download
+	** http://sourceforge.net/projects/lportal/files/Liferay%20Portal/5.2.3/liferay-portal-doc-5.2.3.zip/download
+	* Expand the zips next to each other
+	* Copy build.properties to build.{{yourname}}.properties inside the sdk directory. You need to make sure the build.yourname.properties file points the sdk at the local liferay instance, which should be just next door, but it depends how you expanded the zips, if you put them in folders
+	* Run the tomcat and you should be able to navigate to a local portal instance at localhost
+	* From inside a portlet directory (assuming you checked one out or created one) you should be able to execute ant to get the war to build and automatically deploy to your local portal. To get it to just build the war use
+	ant war 
+
+2.2 Getting Started
+
+	To update the default values for the "anonymous" email address and the detault message recipent, update the renderPrefs method in FeedbackPortlet.java.
+ 
+2.3 Building Portlets
+
+	Liferay portlets are built with ant. They must be built inside of the liferay SDK portlet directory, which is correctly installed next to a liferay instance of the correct version.
+
+	Assuming you have your development environment set up correctly you should be able to use the ant war command in the root of your portlet project directory. This will generate a war file that you can manually deploy to your development liferay instance (if it is on another machine). 
+	You can skip this manual step by using the ant deploy target, which will deploy the portlet to the liferay instance that is sitting next to your liferay SDK directory.
+
+3. Portlet Deployment
+
+	Generally hot deployment of portlets is the way to go:
+	
+	* Backup filesystem and database, just in case
+	* If you are redeploying an existing portlet delete the old version in the liferay/tomcat/webapps directory while the portal is still running. This will unregister the old version of portlet.
+	* Drop the new war(s) in to the {{install dir}}/liferay/deploy directory.
+	* Check catalina.out to see that the theme or portlet was successfully deployed.
+	* If this is a new portlet, add your portlet on to the page where you want it to appear (create new page if desired).
+	* Update configuration for portlet as needed
+	* If it looks like something is cached or didn't get updated stop the portal and delete the work directory and restart the portal again. If you are updating the look and feel make sure your browser is not caching the old css.
